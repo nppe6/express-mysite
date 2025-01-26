@@ -7,6 +7,12 @@ import { CustomRequest, UserInfoInterface } from '../middleware/jwt'
 
 // 登录controller
 const login = async (req: Request<{}, {}, AdminInput>, res: Response) => {
+  // 首先是验证码 逻辑进行验证
+  if (req.body.captcha.toLowerCase() !== req.session.captcha?.toLowerCase()) {
+    return commonRes.error(res, null, '验证码错误', 401)
+  }
+
+  // 下面是验证码逻辑正确后
   const [e, user] = await silentHandle(adminService.login, req.body)
 
   return e ? commonRes.error(res, null, e.message) : commonRes(res, user, { message: '登录成功' })
