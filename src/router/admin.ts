@@ -8,5 +8,6 @@ const adminRouter = Router()
 adminRouter
   .post('/login', adminValidator.login, adminController.login)
   .get('/whoami', verifyToken(), adminController.whoami)
+  .put('/', verifyToken(), adminValidator.updateAdmin, adminController.updateAdmin)
 
 export default adminRouter
