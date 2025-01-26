@@ -6,6 +6,12 @@ const loginDao = async (loginInfo: AdminInput) => {
     where: {
       loginID: loginInfo.loginId,
     },
+    select: {
+      id: true,
+      name: true,
+      loginID: true,
+      loginPwd: true,
+    },
   })
 }
 

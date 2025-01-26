@@ -7,7 +7,7 @@ import adminService from '../service/adminService'
 const login = async (req: Request<{}, {}, AdminInput>, res: Response) => {
   const [e, user] = await silentHandle(adminService.login, req.body)
 
-  return e ? commonRes.error(res, null, e.message) : commonRes(res, user)
+  return e ? commonRes.error(res, null, e.message) : commonRes(res, user, { message: '登录成功' })
 }
 
 export default {
