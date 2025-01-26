@@ -23,3 +23,15 @@ model admin {
 
   @@map("admin_user") //管理员用户表
 }
+
+model banner {
+  id          Int      @id @default(autoincrement()) @db.UnsignedInt()
+  midImg      String   @map("mid_img")
+  bigImg      String   @map("big_img")
+  title       String
+  description String
+  createAt    DateTime @default(now()) @map("create_at")
+  updateAt    DateTime @updatedAt() @map("update_at")
+
+  @@map("banner") //banner表
+}
