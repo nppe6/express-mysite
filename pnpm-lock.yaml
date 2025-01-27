@@ -70,7 +70,7 @@ importers:
         version: 2.0.0(@types/node@22.10.10)(typescript@5.7.3)
     devDependencies:
       '@types/config':
-        specifier: ^3.3.5
+        specifier: 3.3.5
         version: 3.3.5
       '@types/cors':
         specifier: ^2.8.17
