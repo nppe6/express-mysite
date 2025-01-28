@@ -10,9 +10,9 @@ const addBlog = async (req: express.Request, res: express.Response) => {
   return e ? commonRes.error(res, null, e.message) : commonRes(res, blog, { message: '添加成功' })
 }
 
-// 获取博客分类
-const findAllBlog = async (req: express.Request, res: express.Response) => {
-  const [e, blog] = await silentHandle(blogService.findAllBlog, req.body)
+// 根据分页查询文章数据
+const findBlogByPage = async (req: express.Request, res: express.Response) => {
+  const [e, blog] = await silentHandle(blogService.findBlogByPage, req.query)
 
   return e ? commonRes.error(res, null, e.message) : commonRes(res, blog, { message: '获取成功' })
 }
@@ -40,7 +40,7 @@ const delBlog = async (req: express.Request, res: express.Response) => {
 
 export default {
   addBlog,
-  findAllBlog,
+  findBlogByPage,
   findOneBlog,
   updateBlog,
   delBlog,

@@ -13,6 +13,13 @@ export interface BlogInput {
   categoryId: number
 }
 
+export interface BlogToPage {
+  page: number
+  limit: number
+  keyword: string
+  categoryId: number | undefined
+}
+
 const createBlog = validate([
   body('title')
     .notEmpty()

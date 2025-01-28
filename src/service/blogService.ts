@@ -1,7 +1,8 @@
 import blogDao from '../dao/blogDao'
 import blogTypeDao from '../dao/blogTypeDao'
-import { BlogInput } from '../middleware/validator/blog.validator'
+import { BlogInput, BlogToPage } from '../middleware/validator/blog.validator'
 
+// 添加博客
 const addBlog = async (newBlogInfo: BlogInput) => {
   // 先将 toc 转成字符串 这部分代码 下节写
   newBlogInfo.toc = JSON.stringify('["a","b"]')
@@ -14,7 +15,18 @@ const addBlog = async (newBlogInfo: BlogInput) => {
   return data
 }
 
-const findAllBlog = async () => {}
+// 根据分页查询文章数据
+const findBlogByPage = async (pageInfo: BlogToPage) => {
+  // { page: '1', limit: '10', category: '1' }
+  const parsedQuery: BlogToPage = {
+    page: Number(pageInfo.page ?? 1),
+    limit: Number(pageInfo.limit ?? 10),
+    keyword: pageInfo.keyword ?? '',
+    categoryId: pageInfo.categoryId ? Number(pageInfo.categoryId) : undefined, // 保持可选性
+  }
+  const data = await blogDao.findBlogByPage(parsedQuery)
+  return data
+}
 
 const findOneBlog = async (blogId: number) => {}
 
@@ -27,7 +39,7 @@ const delBlog = async (blogId: number) => {}
 
 export default {
   addBlog,
-  findAllBlog,
+  findBlogByPage,
   findOneBlog,
   updateBlog,
   delBlog,
