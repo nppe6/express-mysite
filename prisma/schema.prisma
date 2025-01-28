@@ -41,8 +41,26 @@ model blogType {
   name         String
   articleCount Int      @map("article_count")
   order        Int
+  blogs        blog[]
   createAt     DateTime @default(now()) @map("create_at")
   updateAt     DateTime @updatedAt() @map("update_at")
 
-  @@map("blog_type") //类型表
+  @@map("category") //类型表
+}
+
+model blog {
+  id            Int      @id @default(autoincrement()) @db.UnsignedInt()
+  title         String
+  description   String   @db.Text
+  toc           String   @db.Text
+  htmlContent   String   @map("html_content") @db.Text
+  thumb         String
+  scanNumber    Int      @map("scan_number")
+  commentNumber Int      @map("comment_number")
+  createAt      DateTime @default(now()) @map("create_at")
+  updateAt      DateTime @updatedAt() @map("update_at")
+  blogType      blogType @relation(fields: [categoryId], references: [id], onDelete: Cascade)
+  categoryId    Int      @map("category_id") @db.UnsignedInt()
+
+  @@map("blog") //博客表
 }

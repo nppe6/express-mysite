@@ -31,10 +31,23 @@ const delBlogType = async (id: number) => {
   return await prisma.blogType.delete({ where: { id } })
 }
 
+// 根据id新增对应的文章博客分类
+const addBlogToType = async (typeId: number) => {
+  const data = await prisma.blogType.findFirst({ where: { id: typeId } })
+  if (data) {
+    await prisma.blogType.updateMany({
+      where: { id: typeId },
+      data: { articleCount: { increment: 1 } },
+    })
+    return
+  }
+}
+
 export default {
   addBlogType,
   findAllBlogType,
   findOneBlogType,
   updateBlogType,
   delBlogType,
+  addBlogToType,
 }
