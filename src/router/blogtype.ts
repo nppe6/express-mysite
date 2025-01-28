@@ -4,7 +4,8 @@ import blogTypeValidator from '../middleware/validator/blogType.validator'
 import blogTypeController from '../controller/blogTypeController'
 const blogtypeRouter = express.Router()
 
-// 添加博客分类
-blogtypeRouter.post('/', verifyToken(), blogTypeValidator.blogType, blogTypeController.addBlogType)
+blogtypeRouter
+  .post('/', verifyToken(), blogTypeValidator.blogType, blogTypeController.addBlogType)
+  .get('/', blogTypeController.findAllBlogType)
 
 export default blogtypeRouter

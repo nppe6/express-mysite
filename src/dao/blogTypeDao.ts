@@ -13,6 +13,11 @@ const addBlogType = async (blogType: BlogTypeInput) => {
   })
 }
 
+const findAllBlogType = async () => {
+  return await prisma.blogType.findMany({ where: {} })
+}
+
 export default {
   addBlogType,
+  findAllBlogType,
 }
