@@ -30,9 +30,16 @@ const updateBlogType = async (blogType: Array<unknown>) => {
   return result
 }
 
+const delBlogType = async (typeId: number) => {
+  const result = await blogTypeDao.delBlogType(typeId)
+
+  return result
+}
+
 export default {
   addBlogType,
   findAllBlogType,
   findOneBlogType,
   updateBlogType,
+  delBlogType,
 }

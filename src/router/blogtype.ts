@@ -9,5 +9,6 @@ blogtypeRouter
   .get('/', blogTypeController.findAllBlogType)
   .get('/:typeId', blogTypeController.findOneBlogType)
   .put('/:typeId', verifyToken(), blogTypeValidator.blogType, blogTypeController.updateBlogType)
+  .delete('/:typeId', verifyToken(), blogTypeController.delBlogType)
 
 export default blogtypeRouter

@@ -31,9 +31,17 @@ const updateBlogType = async (req: express.Request, res: express.Response) => {
   return e ? commonRes.error(res, null, e.message) : commonRes(res, blogType, { message: '修改成功' })
 }
 
+// 删除博客分类
+const delBlogType = async (req: express.Request, res: express.Response) => {
+  const [e, blogType] = await silentHandle(blogTypeService.delBlogType, Number(req.params.typeId))
+
+  return e ? commonRes.error(res, null, e.message) : commonRes(res, null, { message: '删除成功' })
+}
+
 export default {
   addBlogType,
   findAllBlogType,
   findOneBlogType,
   updateBlogType,
+  delBlogType,
 }
