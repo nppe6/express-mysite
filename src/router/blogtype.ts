@@ -8,5 +8,6 @@ blogtypeRouter
   .post('/', verifyToken(), blogTypeValidator.blogType, blogTypeController.addBlogType)
   .get('/', blogTypeController.findAllBlogType)
   .get('/:typeId', blogTypeController.findOneBlogType)
+  .put('/:typeId', verifyToken(), blogTypeValidator.blogType, blogTypeController.updateBlogType)
 
 export default blogtypeRouter

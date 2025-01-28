@@ -24,8 +24,16 @@ const findOneBlogType = async (req: express.Request, res: express.Response) => {
   return e ? commonRes.error(res, null, e.message) : commonRes(res, blogType, { message: '获取成功' })
 }
 
+// 修改博客分类
+const updateBlogType = async (req: express.Request, res: express.Response) => {
+  const [e, blogType] = await silentHandle(blogTypeService.updateBlogType, [Number(req.params.typeId), req.body])
+
+  return e ? commonRes.error(res, null, e.message) : commonRes(res, blogType, { message: '修改成功' })
+}
+
 export default {
   addBlogType,
   findAllBlogType,
   findOneBlogType,
+  updateBlogType,
 }

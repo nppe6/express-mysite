@@ -21,8 +21,18 @@ const findOneBlogType = async (typeId: number) => {
   return data
 }
 
+const updateBlogType = async (blogType: Array<unknown>) => {
+  const typeId = blogType[0] as number
+  const data = blogType[1] as Record<string, any>
+
+  const result = await blogTypeDao.updateBlogType(typeId, data)
+
+  return result
+}
+
 export default {
   addBlogType,
   findAllBlogType,
   findOneBlogType,
+  updateBlogType,
 }
