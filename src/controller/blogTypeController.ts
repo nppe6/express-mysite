@@ -17,7 +17,15 @@ const findAllBlogType = async (req: express.Request, res: express.Response) => {
   return e ? commonRes.error(res, null, e.message) : commonRes(res, blogType, { message: '获取成功' })
 }
 
+// 获取单个博客分类
+const findOneBlogType = async (req: express.Request, res: express.Response) => {
+  const [e, blogType] = await silentHandle(blogTypeService.findOneBlogType, Number(req.params.typeId))
+
+  return e ? commonRes.error(res, null, e.message) : commonRes(res, blogType, { message: '获取成功' })
+}
+
 export default {
   addBlogType,
   findAllBlogType,
+  findOneBlogType,
 }

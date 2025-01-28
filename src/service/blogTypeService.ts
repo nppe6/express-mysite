@@ -8,9 +8,15 @@ const addBlogType = async (blogType: BlogTypeInput) => {
   return data
 }
 
-const findAllBlogType = async (blogType: BlogTypeInput) => {
+const findAllBlogType = async () => {
   const data = await blogTypeDao.findAllBlogType()
   data.sort((a, b) => a.order - b.order)
+
+  return data
+}
+
+const findOneBlogType = async (typeId: number) => {
+  const data = await blogTypeDao.findOneBlogType(typeId)
 
   return data
 }
@@ -18,4 +24,5 @@ const findAllBlogType = async (blogType: BlogTypeInput) => {
 export default {
   addBlogType,
   findAllBlogType,
+  findOneBlogType,
 }

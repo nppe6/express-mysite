@@ -17,7 +17,12 @@ const findAllBlogType = async () => {
   return await prisma.blogType.findMany({ where: {} })
 }
 
+const findOneBlogType = async (id: number) => {
+  return await prisma.blogType.findFirst({ where: { id } })
+}
+
 export default {
   addBlogType,
   findAllBlogType,
+  findOneBlogType,
 }

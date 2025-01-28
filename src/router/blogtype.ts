@@ -7,5 +7,6 @@ const blogtypeRouter = express.Router()
 blogtypeRouter
   .post('/', verifyToken(), blogTypeValidator.blogType, blogTypeController.addBlogType)
   .get('/', blogTypeController.findAllBlogType)
+  .get('/:typeId', blogTypeController.findOneBlogType)
 
 export default blogtypeRouter
