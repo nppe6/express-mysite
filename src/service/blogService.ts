@@ -25,7 +25,17 @@ const findBlogByPage = async (pageInfo: BlogToPage) => {
     categoryId: pageInfo.categoryId ? Number(pageInfo.categoryId) : undefined, // 保持可选性
   }
   const data = await blogDao.findBlogByPage(parsedQuery)
-  return data
+
+  // 这里有一个坑 就是转换的时候 会转换不出成对象 这里需要双重转换才可以
+  const parsedRows = data.rows.map((item) => {
+    const plainItem = JSON.parse(JSON.stringify(item)) // 转换为普通对象
+    return {
+      ...plainItem,
+      toc: JSON.parse(JSON.parse(plainItem.toc || '""')), // 先解析外层，再解析内层
+    }
+  })
+
+  return { ...data, rows: parsedRows }
 }
 
 const findOneBlog = async (blogId: number) => {}
