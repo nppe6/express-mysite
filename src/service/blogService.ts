@@ -38,7 +38,25 @@ const findBlogByPage = async (pageInfo: BlogToPage) => {
   return { ...data, rows: parsedRows }
 }
 
-const findOneBlog = async (blogId: number) => {}
+// 根据id 获取博客文章
+const findOneBlog = async (data: Array<unknown>) => {
+  const id = data[0] as number
+  const auth = data[1] as string
+
+  const result = await blogDao.findBlogById(id)
+  if (result) {
+    // 首先需要将 toc 转成一个正常的数组
+    JSON.parse(JSON.stringify(result))
+    result.toc = JSON.parse(JSON.parse(result.toc) || '""')
+    // 根据前端判断是否 需要 将浏览数 增加
+    if (!auth) {
+      await blogDao.addScanNum(result.id)
+    }
+    return result
+  } else {
+    throw new Error('查询文章不存在')
+  }
+}
 
 const updateBlog = async (blog: Array<unknown>) => {
   const blogId = blog[0] as number

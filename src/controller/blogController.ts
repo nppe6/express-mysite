@@ -17,9 +17,10 @@ const findBlogByPage = async (req: express.Request, res: express.Response) => {
   return e ? commonRes.error(res, null, e.message) : commonRes(res, blog, { message: '获取成功' })
 }
 
-// 获取单个博客分类
+// 获取单个博客文章数据
 const findOneBlog = async (req: express.Request, res: express.Response) => {
-  const [e, blog] = await silentHandle(blogService.findOneBlog, Number(req.params.typeId))
+  const reqHeaders = req.headers
+  const [e, blog] = await silentHandle(blogService.findOneBlog, [Number(req.params.blogId), reqHeaders.authorization])
 
   return e ? commonRes.error(res, null, e.message) : commonRes(res, blog, { message: '获取成功' })
 }

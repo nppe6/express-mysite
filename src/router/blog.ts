@@ -7,7 +7,7 @@ const blogRouter = express.Router()
 blogRouter
   .post('/', verifyToken(), blogValidator.createBlog, blogController.addBlog)
   .get('/', blogController.findBlogByPage)
-  .get('/:typeId')
+  .get('/:blogId', blogController.findOneBlog)
   .put('/:typeId', verifyToken())
   .delete('/:typeId', verifyToken())
 

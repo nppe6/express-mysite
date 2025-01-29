@@ -67,7 +67,33 @@ const findBlogByPage = async (pageInfo: BlogToPage) => {
   }
 }
 
+// 根据 id 获取博客文章
+const findBlogById = async (id: number) => {
+  return await prisma.blog.findFirst({
+    include: {
+      blogType: {
+        select: {
+          id: true,
+          name: true,
+        },
+      },
+    },
+    where: { id },
+    orderBy: {
+      createAt: 'desc',
+    },
+  })
+}
+
+// 对 浏览数 进行增加处理
+const addScanNum = async (id: number) => {
+  await prisma.blog.update({ where: { id }, data: { scanNumber: { increment: 1 } } })
+  return
+}
+
 export default {
   addBlog,
   findBlogByPage,
+  findBlogById,
+  addScanNum,
 }
