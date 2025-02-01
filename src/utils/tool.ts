@@ -1,5 +1,6 @@
 import { BlogInput } from '../middleware/validator/blog.validator'
 const markdownToc = require('markdown-toc')
+import fs from 'fs'
 
 // 处理 TOC
 export const handleTOC = function (info: BlogInput) {
@@ -126,4 +127,17 @@ export const handleTOC = function (info: BlogInput) {
   }
 
   return info
+}
+
+//  处理随机头像读取
+export const readDirLength: (dir: string) => Promise<string[]> = (dir: string) => {
+  return new Promise((resolve) => {
+    fs.readdir(dir, (err, files) => {
+      if (err) {
+        console.log(err)
+        throw new Error('读取文件失败 ')
+      }
+      resolve(files)
+    })
+  })
 }

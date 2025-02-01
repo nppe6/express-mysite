@@ -101,6 +101,11 @@ const delBlog = async (id: number) => {
   return await prisma.blog.delete({ where: { id } })
 }
 
+// 对文章的评论数进行增加
+const addCommentNum = async (id: number) => {
+  return await prisma.blog.update({ where: { id }, data: { commentNumber: { increment: 1 } } })
+}
+
 export default {
   addBlog,
   findBlogByPage,
@@ -108,4 +113,5 @@ export default {
   addScanNum,
   updateBlog,
   delBlog,
+  addCommentNum,
 }
