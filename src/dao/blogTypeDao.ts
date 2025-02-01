@@ -1,5 +1,6 @@
 import { BlogTypeInput } from '../middleware/validator/blogType.validator'
 import prisma from '../model/prisma'
+import logger from '../utils/logger'
 
 const addBlogType = async (blogType: BlogTypeInput) => {
   return await prisma.blogType.create({
@@ -43,6 +44,30 @@ const addBlogToType = async (typeId: number) => {
   }
 }
 
+// 对 文章的分类 id 进行 文章数量的自减操作 该操作 是删除文章时候 使用
+const delArticleCount = async (categoryId: number) => {
+  const category = await prisma.blogType.findFirst({
+    where: { id: categoryId },
+    select: { articleCount: true },
+  })
+  if (!category) {
+    throw new Error('分类不存在')
+  }
+
+  if (category.articleCount <= 0) {
+    throw new Error('articleCount 已经是 0，无需减少')
+  }
+
+  // 执行减一操作
+  const result = await prisma.blogType.updateMany({
+    where: { id: categoryId },
+    data: { articleCount: { increment: -1 } },
+  })
+
+  logger.warn(`成功减少 articleCount，更新记录数：${result.count}`)
+  return result
+}
+
 export default {
   addBlogType,
   findAllBlogType,
@@ -50,4 +75,5 @@ export default {
   updateBlogType,
   delBlogType,
   addBlogToType,
+  delArticleCount,
 }

@@ -9,6 +9,6 @@ blogRouter
   .get('/', blogController.findBlogByPage)
   .get('/:blogId', blogController.findOneBlog)
   .put('/:blogId', verifyToken(), blogValidator.createBlog, blogController.updateBlog)
-  .delete('/:typeId', verifyToken())
+  .delete('/:blogId', verifyToken(), blogController.delBlog)
 
 export default blogRouter

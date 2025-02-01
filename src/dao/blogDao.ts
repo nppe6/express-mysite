@@ -96,10 +96,16 @@ const updateBlog = async (id: number, newBlogInfo: BlogInput) => {
   return await prisma.blog.update({ where: { id }, data: newBlogInfo })
 }
 
+// 删除文章
+const delBlog = async (id: number) => {
+  return await prisma.blog.delete({ where: { id } })
+}
+
 export default {
   addBlog,
   findBlogByPage,
   findBlogById,
   addScanNum,
   updateBlog,
+  delBlog,
 }

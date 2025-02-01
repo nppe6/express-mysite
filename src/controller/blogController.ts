@@ -32,9 +32,9 @@ const updateBlog = async (req: express.Request, res: express.Response) => {
   return e ? commonRes.error(res, null, e.message) : commonRes(res, blog, { message: '修改成功' })
 }
 
-// 删除博客分类
+// 删除博客文章
 const delBlog = async (req: express.Request, res: express.Response) => {
-  const [e, blog] = await silentHandle(blogService.delBlog, Number(req.params.typeId))
+  const [e, blog] = await silentHandle(blogService.delBlog, Number(req.params.blogId))
 
   return e ? commonRes.error(res, null, e.message) : commonRes(res, null, { message: '删除成功' })
 }

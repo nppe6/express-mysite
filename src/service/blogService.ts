@@ -72,7 +72,20 @@ const updateBlog = async (blog: Array<unknown>) => {
   return result
 }
 
-const delBlog = async (blogId: number) => {}
+// 删除博客文章
+const delBlog = async (blogId: number) => {
+  // 第一步 根据 id 查询 对应的文章 信息
+  const data = await blogDao.findBlogById(blogId)
+  if (!data) throw new Error('该文章 id 信息不存在 ')
+  // 第二步 需要对 对应的文章分类的文章数量 进行自减
+  await blogTypeDao.delArticleCount(data.categoryId)
+  // 第三步 就是该文章下的 所有评论一并进行删除
+
+  // 第四步 删除博客文章返回数据
+  const result = await blogDao.delBlog(blogId)
+
+  return result
+}
 
 export default {
   addBlog,
