@@ -82,7 +82,15 @@ const findMessageByPage = async (pageInfo: messagePage) => {
   }
 }
 
+// 删除留言或是评论
+const delMessage = async (id: number) => {
+  const data = await prisma.message.findFirst({ where: { id } })
+  if (!data) throw new Error('服务器错误，删除失败 ')
+  return await prisma.message.delete({ where: { id } })
+}
+
 export default {
   addMessage,
   findMessageByPage,
+  delMessage,
 }

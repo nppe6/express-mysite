@@ -6,6 +6,6 @@ const messageRouter = Router()
 messageRouter
   .post('/', messageValidator.message, messageController.addMessage)
   .get('/', messageController.findMessageByPage)
-  .delete('/')
+  .delete('/:messageId', messageController.delMessage)
 
 export default messageRouter

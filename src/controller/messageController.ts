@@ -18,8 +18,14 @@ const findMessageByPage = async (req: express.Request, res: express.Response) =>
 }
 
 // 删除留言或评论
+const delMessage = async (req: express.Request, res: express.Response) => {
+  const [e, message] = await silentHandle(messageService.delMessage, Number(req.params.messageId))
+
+  return e ? commonRes.error(res, null, e.message) : commonRes(res, null, { message: '删除成功' })
+}
 
 export default {
   addMessage,
   findMessageByPage,
+  delMessage,
 }

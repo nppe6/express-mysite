@@ -38,7 +38,15 @@ const findMessageByPage = async (pageInfo: messagePage) => {
   return { rows: result.messages, total: result.total }
 }
 
+// 删除留言或评论
+const delMessage = async (id: number) => {
+  const result = messageDao.delMessage(id)
+
+  return result
+}
+
 export default {
   addMessage,
   findMessageByPage,
+  delMessage,
 }
