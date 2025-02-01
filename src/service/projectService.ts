@@ -20,7 +20,33 @@ const addDemo = async (newDemoInfo: projectInput) => {
   return [result]
 }
 
+// 修改项目
+const updateDemo = async (data: Array<unknown>) => {
+  const id = data[0] as number
+  const newDemoInfo = data[1] as projectInput
+
+  if (newDemoInfo.description) {
+    // 对描述信息 由数组 转成字符串
+    newDemoInfo.description = JSON.stringify(newDemoInfo.description)
+  }
+
+  const result = await projectDao.updateDemo(id, newDemoInfo)
+  // 接下来拿到数据 再将 描述转换会成 数组的格式
+  result.description = JSON.parse(result.description)
+
+  return result
+}
+
+// 删除项目
+const delDemo = async (id: number) => {
+  const result = await projectDao.delDemo(id)
+
+  return result
+}
+
 export default {
   findAllDemo,
   addDemo,
+  updateDemo,
+  delDemo,
 }

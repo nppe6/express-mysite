@@ -17,10 +17,22 @@ const addDemo = async (req: express.Request, res: express.Response) => {
   return e ? commonRes.error(res, null, e.message) : commonRes(res, demo, { message: '添加成功' })
 }
 // 修改项目
+const updateDemo = async (req: express.Request, res: express.Response) => {
+  const [e, demo] = await silentHandle(projectService.updateDemo, [Number(req.params.demoId), req.body])
+
+  return e ? commonRes.error(res, null, e.message) : commonRes(res, demo, { message: '修改成功' })
+}
 
 // 删除项目
+const delDemo = async (req: express.Request, res: express.Response) => {
+  const [e, demo] = await silentHandle(projectService.delDemo, Number(req.params.demoId))
+
+  return e ? commonRes.error(res, null, e.message) : commonRes(res, null, { message: '删除成功' })
+}
 
 export default {
   findAllDemo,
   addDemo,
+  updateDemo,
+  delDemo,
 }
