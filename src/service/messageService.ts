@@ -1,5 +1,5 @@
 import path from 'path'
-import { messageInput } from '../middleware/validator/message.validator'
+import { messageInput, messagePage } from '../middleware/validator/message.validator'
 import { readDirLength } from '../utils/tool'
 import messageDao from '../dao/messageDao'
 import blogDao from '../dao/blogDao'
@@ -26,6 +26,19 @@ const addMessage = async (newMessage: messageInput) => {
   return result
 }
 
+// 获取分页留言或评论
+const findMessageByPage = async (pageInfo: messagePage) => {
+  const parsedQuery: messagePage = {
+    page: Number(pageInfo.page ?? 1),
+    limit: Number(pageInfo.limit ?? 10),
+    keyword: pageInfo.keyword ?? '',
+    blogId: pageInfo.blogId ? Number(pageInfo.blogId) : undefined, // 保持可选性
+  }
+  const result = await messageDao.findMessageByPage(parsedQuery)
+  return { rows: result.messages, total: result.total }
+}
+
 export default {
   addMessage,
+  findMessageByPage,
 }

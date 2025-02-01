@@ -9,6 +9,13 @@ export interface messageInput {
   blogId?: number | null
 }
 
+export interface messagePage {
+  page: number
+  limit: number
+  keyword: string
+  blogId?: number
+}
+
 const message = validate([
   body('nickname').notEmpty().withMessage('名称不能为空 ~').bail(),
   body('content').notEmpty().withMessage('内容不能为空 ~').bail(),
