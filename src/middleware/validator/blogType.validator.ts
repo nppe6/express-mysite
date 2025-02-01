@@ -19,7 +19,7 @@ const blogType = validate([
       }
     })
     .bail(),
-  body('order').notEmpty().withMessage('排序等级不能为空 ~').bail(),
+  body('order').notEmpty().withMessage('排序等级不能为空 ~').toInt(), // 将字符串转换为整数,
 ])
 
 export default {

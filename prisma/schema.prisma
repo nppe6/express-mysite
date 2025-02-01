@@ -64,3 +64,15 @@ model blog {
 
   @@map("blog") //博客表
 }
+
+model demo {
+  id          Int    @id @default(autoincrement()) @db.UnsignedInt()
+  name        String
+  url         String
+  github      String
+  description String @db.Text
+  thumb       String
+  order       Int
+
+  @@map("project_demo")
+}

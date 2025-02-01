@@ -26,7 +26,7 @@ const createBlog = validate([
     .notEmpty()
     .withMessage('文章标题不能为空 ~')
     .isLength({ max: 22 })
-    .withMessage('密码最多为22个字符 ~')
+    .withMessage('文章标题最多为22个字符 ~')
     .bail(),
   body('description').notEmpty().withMessage('描述不能为空 ~').bail(),
   body('toc').notEmpty().withMessage('目录不能为空 ~').bail(),

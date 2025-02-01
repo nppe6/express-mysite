@@ -4,6 +4,7 @@ import bannerRouter from '../banner'
 import blogRouter from '../blog'
 import blogtypeRouter from '../blogtype'
 import captchaRouter from '../captcha'
+import projectRouter from '../project'
 import uploadRouter from '../upload'
 
 export const routerConf = [
@@ -13,4 +14,5 @@ export const routerConf = [
   { path: '/uploads', router: uploadRouter },
   { path: '/blogtype', router: blogtypeRouter },
   { path: '/blog', router: blogRouter },
+  { path: '/project', router: projectRouter },
 ] as RouterConf[]
