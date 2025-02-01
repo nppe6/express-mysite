@@ -11,6 +11,7 @@ export interface BlogInput {
   scanNumber: number
   commentNumber: number
   categoryId: number
+  markdownContent?: string
 }
 
 export interface BlogToPage {

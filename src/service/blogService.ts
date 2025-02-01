@@ -1,11 +1,17 @@
 import blogDao from '../dao/blogDao'
 import blogTypeDao from '../dao/blogTypeDao'
 import { BlogInput, BlogToPage } from '../middleware/validator/blog.validator'
+import { handleTOC } from '../utils/tool'
 
 // 添加博客
 const addBlog = async (newBlogInfo: BlogInput) => {
-  // 先将 toc 转成字符串 这部分代码 下节写
-  newBlogInfo.toc = JSON.stringify('["a","b"]')
+  // 先将 toc 转成字符串
+  newBlogInfo = handleTOC(newBlogInfo)
+
+  // 接下来就是将处理好的  toc转成字符串格式
+  newBlogInfo.toc = JSON.stringify(newBlogInfo.toc)
+
+  // 初始化文章其他信息
   newBlogInfo.scanNumber = 0 // 阅读量初始化 为 0,
   newBlogInfo.commentNumber = 0 // 评论数初始化 为 0
 
@@ -61,11 +67,15 @@ const findOneBlog = async (data: Array<unknown>) => {
 // 修改单个 博客文章
 const updateBlog = async (blog: Array<unknown>) => {
   const blogId = blog[0] as number
-  const data = blog[1] as BlogInput
+  let data = blog[1] as BlogInput
   // 修改首先需要 判断 文章的内容正文是否有改变 有改变就需要重新 处理 Toc目录
   if (data.htmlContent) {
     // 进入 这里 表示输入的正文 是有改变的
-    data.toc = JSON.stringify('["a","b"]')
+    // 先将 toc 转成字符串
+    data = handleTOC(data)
+
+    // 接下来就是将处理好的  toc转成字符串格式
+    data.toc = JSON.stringify(data.toc)
   }
 
   const result = await blogDao.updateBlog(blogId, data)
