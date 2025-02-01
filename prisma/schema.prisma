@@ -49,18 +49,19 @@ model blogType {
 }
 
 model blog {
-  id            Int      @id @default(autoincrement()) @db.UnsignedInt()
+  id            Int       @id @default(autoincrement()) @db.UnsignedInt()
   title         String
-  description   String   @db.Text
-  toc           String   @db.Text
-  htmlContent   String   @map("html_content") @db.Text
+  description   String    @db.Text
+  toc           String    @db.Text
+  htmlContent   String    @map("html_content") @db.Text
   thumb         String
-  scanNumber    Int      @map("scan_number")
-  commentNumber Int      @map("comment_number")
-  createAt      DateTime @default(now()) @map("create_at")
-  updateAt      DateTime @updatedAt() @map("update_at")
-  blogType      blogType @relation(fields: [categoryId], references: [id], onDelete: Cascade)
-  categoryId    Int      @map("category_id") @db.UnsignedInt()
+  scanNumber    Int       @map("scan_number")
+  commentNumber Int       @map("comment_number")
+  createAt      DateTime  @default(now()) @map("create_at")
+  updateAt      DateTime  @updatedAt() @map("update_at")
+  blogType      blogType  @relation(fields: [categoryId], references: [id], onDelete: Cascade)
+  categoryId    Int       @map("category_id") @db.UnsignedInt()
+  messages      message[]
 
   @@map("blog") //博客表
 }
@@ -87,6 +88,8 @@ model message {
   avatar     String
   createAt   DateTime @default(now()) @map("create_at")
   updateAt   DateTime @updatedAt() @map("update_at")
+  blog       blog?    @relation(fields: [blogId], references: [id], onDelete: Cascade)
+  blogId     Int?     @map("blog_id") @db.UnsignedInt()
 
   @@map("message")
 }
