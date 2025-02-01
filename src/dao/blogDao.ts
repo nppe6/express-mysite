@@ -91,9 +91,15 @@ const addScanNum = async (id: number) => {
   return
 }
 
+// 根据 id 对博客文章进行修改
+const updateBlog = async (id: number, newBlogInfo: BlogInput) => {
+  return await prisma.blog.update({ where: { id }, data: newBlogInfo })
+}
+
 export default {
   addBlog,
   findBlogByPage,
   findBlogById,
   addScanNum,
+  updateBlog,
 }

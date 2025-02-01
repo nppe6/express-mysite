@@ -25,9 +25,9 @@ const findOneBlog = async (req: express.Request, res: express.Response) => {
   return e ? commonRes.error(res, null, e.message) : commonRes(res, blog, { message: '获取成功' })
 }
 
-// 修改博客分类
+// 修改博客文章
 const updateBlog = async (req: express.Request, res: express.Response) => {
-  const [e, blog] = await silentHandle(blogService.updateBlog, [Number(req.params.typeId), req.body])
+  const [e, blog] = await silentHandle(blogService.updateBlog, [Number(req.params.blogId), req.body])
 
   return e ? commonRes.error(res, null, e.message) : commonRes(res, blog, { message: '修改成功' })
 }

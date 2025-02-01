@@ -8,7 +8,7 @@ blogRouter
   .post('/', verifyToken(), blogValidator.createBlog, blogController.addBlog)
   .get('/', blogController.findBlogByPage)
   .get('/:blogId', blogController.findOneBlog)
-  .put('/:typeId', verifyToken())
+  .put('/:blogId', verifyToken(), blogValidator.createBlog, blogController.updateBlog)
   .delete('/:typeId', verifyToken())
 
 export default blogRouter

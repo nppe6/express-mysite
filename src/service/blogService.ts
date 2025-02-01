@@ -58,9 +58,18 @@ const findOneBlog = async (data: Array<unknown>) => {
   }
 }
 
+// 修改单个 博客文章
 const updateBlog = async (blog: Array<unknown>) => {
   const blogId = blog[0] as number
-  const data = blog[1] as Record<string, any>
+  const data = blog[1] as BlogInput
+  // 修改首先需要 判断 文章的内容正文是否有改变 有改变就需要重新 处理 Toc目录
+  if (data.htmlContent) {
+    // 进入 这里 表示输入的正文 是有改变的
+    data.toc = JSON.stringify('["a","b"]')
+  }
+
+  const result = await blogDao.updateBlog(blogId, data)
+  return result
 }
 
 const delBlog = async (blogId: number) => {}
