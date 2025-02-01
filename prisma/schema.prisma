@@ -66,13 +66,27 @@ model blog {
 }
 
 model demo {
-  id          Int    @id @default(autoincrement()) @db.UnsignedInt()
+  id          Int      @id @default(autoincrement()) @db.UnsignedInt()
   name        String
   url         String
   github      String
-  description String @db.Text
+  description String   @db.Text
   thumb       String
   order       Int
+  createAt    DateTime @default(now()) @map("create_at")
+  updateAt    DateTime @updatedAt() @map("update_at")
 
   @@map("project_demo")
+}
+
+model message {
+  id         Int      @id @default(autoincrement()) @db.UnsignedInt()
+  nickname   String
+  content    String
+  createDate String   @map("create_date")
+  avatar     String
+  createAt   DateTime @default(now()) @map("create_at")
+  updateAt   DateTime @updatedAt() @map("update_at")
+
+  @@map("message")
 }
