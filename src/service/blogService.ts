@@ -1,5 +1,6 @@
 import blogDao from '../dao/blogDao'
 import blogTypeDao from '../dao/blogTypeDao'
+import messageDao from '../dao/messageDao'
 import { BlogInput, BlogToPage } from '../middleware/validator/blog.validator'
 import { handleTOC } from '../utils/tool'
 
@@ -90,7 +91,7 @@ const delBlog = async (blogId: number) => {
   // 第二步 需要对 对应的文章分类的文章数量 进行自减
   await blogTypeDao.delArticleCount(data.categoryId)
   // 第三步 就是该文章下的 所有评论一并进行删除
-
+  await messageDao.delMessageByBlogId(blogId)
   // 第四步 删除博客文章返回数据
   const result = await blogDao.delBlog(blogId)
 

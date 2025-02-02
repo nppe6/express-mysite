@@ -89,8 +89,14 @@ const delMessage = async (id: number) => {
   return await prisma.message.delete({ where: { id } })
 }
 
+// 删除评论 这里接收的 是文章的 id  是关联的 blogId
+const delMessageByBlogId = async (blogId: number) => {
+  return await prisma.message.deleteMany({ where: { blogId } })
+}
+
 export default {
   addMessage,
   findMessageByPage,
   delMessage,
+  delMessageByBlogId,
 }
