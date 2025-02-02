@@ -93,3 +93,27 @@ model message {
 
   @@map("message")
 }
+
+model setting {
+  id           Int      @id @default(autoincrement()) @db.UnsignedInt()
+  avatar       String
+  siteTitle    String   @map("site_title")
+  github       String
+  qq           String
+  qqQrCode     String   @map("qq_qr_code")
+  weixin       String
+  weixinQrCode String   @map("weixin_qr_code")
+  mail         String
+  icp          String
+  githubName   String   @map("github_name")
+  favicon      String
+  createAt     DateTime @default(now()) @map("create_at")
+  updateAt     DateTime @updatedAt() @map("update_at")
+
+  @@map("setting") // 全局设置表
+}
+
+model about {
+  id  Int    @id @default(autoincrement()) @db.UnsignedInt()
+  url String
+}

@@ -36,6 +36,28 @@ async function run() {
       },
     ],
   })
+
+  await prisma.about.create({
+    data: {
+      url: 'https://oss.duyiedu.com/demo-summary/网页简历/index.html',
+    },
+  })
+
+  await prisma.setting.create({
+    data: {
+      avatar: '/static/images/avatar01.jpg',
+      siteTitle: '我的个人站点',
+      github: '',
+      qq: '2313667401',
+      qqQrCode: '',
+      weixin: 's2313667401',
+      weixinQrCode: '',
+      mail: 'xiao2313667401@163.com',
+      icp: '',
+      githubName: 'nppe6',
+      favicon: 'http://mdrs.yuanjin.tech/Fs4CDlC6mwe_WXLMIiXcmSJLHO4f',
+    },
+  })
 }
 
 run()
