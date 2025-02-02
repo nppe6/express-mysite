@@ -6,6 +6,7 @@ import blogtypeRouter from '../blogtype'
 import captchaRouter from '../captcha'
 import messageRouter from '../message'
 import projectRouter from '../project'
+import settingRouter from '../setting'
 import uploadRouter from '../upload'
 
 export const routerConf = [
@@ -18,4 +19,5 @@ export const routerConf = [
   { path: '/project', router: projectRouter },
   { path: '/message', router: messageRouter },
   { path: '/comment', router: messageRouter },
+  { path: '/setting', router: settingRouter },
 ] as RouterConf[]
