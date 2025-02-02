@@ -18,7 +18,9 @@ const addBlog = async (newBlogInfo: BlogInput) => {
 
   const data = await blogDao.addBlog(newBlogInfo)
   // 这一步操作就是 当我文章添加了 对应的文章分类也应该需要增加
-  await blogTypeDao.addBlogToType(data.categoryId)
+  if (data.categoryId) {
+    await blogTypeDao.addBlogToType(data.categoryId)
+  }
   return data
 }
 
@@ -79,6 +81,21 @@ const updateBlog = async (blog: Array<unknown>) => {
     data.toc = JSON.stringify(data.toc)
   }
 
+  // 这里 涉及到一个问题 就是 文章分类 有没有 修改 有的 话 之前的 就需要 自减
+  // 新的文章分类 就要对应自增
+  const oldBlogInfo = await blogDao.findBlogById(blogId)
+
+  if (data.categoryId !== oldBlogInfo?.categoryId) {
+    // 如果进入了 这里就是表示 文章的分类进行了 修改 那么对应的文章前后 数量就都需要做修改
+    // 旧的 分类 文章统计就是 自减
+    if (oldBlogInfo?.categoryId) {
+      await blogTypeDao.delArticleNum(oldBlogInfo.categoryId)
+    }
+
+    // 新的分类 文章数 统计就是增加
+    await blogTypeDao.addArticleNum(data.categoryId)
+  }
+
   const result = await blogDao.updateBlog(blogId, data)
   return result
 }
@@ -89,7 +106,9 @@ const delBlog = async (blogId: number) => {
   const data = await blogDao.findBlogById(blogId)
   if (!data) throw new Error('该文章 id 信息不存在 ')
   // 第二步 需要对 对应的文章分类的文章数量 进行自减
-  await blogTypeDao.delArticleCount(data.categoryId)
+  if (data.categoryId) {
+    await blogTypeDao.delArticleCount(data.categoryId)
+  }
   // 第三步 就是该文章下的 所有评论一并进行删除
   await messageDao.delMessageByBlogId(blogId)
   // 第四步 删除博客文章返回数据

@@ -69,6 +69,16 @@ const delArticleCount = async (categoryId: number) => {
   return result
 }
 
+// 当文章 进行了修改对应的分类 就需要对分类 统计文章数量 进行自减
+const delArticleNum = async (categoryId: number) => {
+  return await prisma.blogType.update({ where: { id: categoryId }, data: { articleCount: { decrement: 1 } } })
+}
+
+// 新修改的文章分类 那么对应的 文章数量 就需要 增加
+const addArticleNum = async (categoryId: number) => {
+  return await prisma.blogType.update({ where: { id: categoryId }, data: { articleCount: { increment: 1 } } })
+}
+
 export default {
   addBlogType,
   findAllBlogType,
@@ -77,4 +87,6 @@ export default {
   delBlogType,
   addBlogToType,
   delArticleCount,
+  delArticleNum,
+  addArticleNum,
 }
