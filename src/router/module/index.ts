@@ -1,4 +1,5 @@
 import { RouterConf } from '..'
+import aboutRouter from '../about'
 import adminRouter from '../admin'
 import bannerRouter from '../banner'
 import blogRouter from '../blog'
@@ -20,4 +21,5 @@ export const routerConf = [
   { path: '/message', router: messageRouter },
   { path: '/comment', router: messageRouter },
   { path: '/setting', router: settingRouter },
+  { path: '/about', router: aboutRouter },
 ] as RouterConf[]
