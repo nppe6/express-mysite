@@ -29,6 +29,7 @@ const updateBlogType = async (id: number, data: any) => {
 const delBlogType = async (id: number) => {
   const data = await prisma.blogType.findFirst({ where: { id } })
   if (!data) throw new Error('该博客分类不存在')
+  await prisma.blog.updateMany({ where: { categoryId: id }, data: { categoryId: null } })
   return await prisma.blogType.delete({ where: { id } })
 }
 

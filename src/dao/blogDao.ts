@@ -106,6 +106,15 @@ const addCommentNum = async (id: number) => {
   return await prisma.blog.update({ where: { id }, data: { commentNumber: { increment: 1 } } })
 }
 
+// 根据博客分类 id  获取对应的文章数量
+const blogCountByBlogType = async (categoryId: number) => {
+  return await prisma.blog.count({
+    where: {
+      categoryId,
+    },
+  })
+}
+
 export default {
   addBlog,
   findBlogByPage,
@@ -114,4 +123,5 @@ export default {
   updateBlog,
   delBlog,
   addCommentNum,
+  blogCountByBlogType,
 }

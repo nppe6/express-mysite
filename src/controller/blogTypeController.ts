@@ -35,7 +35,7 @@ const updateBlogType = async (req: express.Request, res: express.Response) => {
 const delBlogType = async (req: express.Request, res: express.Response) => {
   const [e, blogType] = await silentHandle(blogTypeService.delBlogType, Number(req.params.typeId))
 
-  return e ? commonRes.error(res, null, e.message) : commonRes(res, null, { message: '删除成功' })
+  return e ? commonRes.error(res, null, e.message) : commonRes(res, blogType, { message: '删除成功' })
 }
 
 export default {

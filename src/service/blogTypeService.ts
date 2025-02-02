@@ -1,3 +1,4 @@
+import blogDao from '../dao/blogDao'
 import blogTypeDao from '../dao/blogTypeDao'
 import { BlogTypeInput } from '../middleware/validator/blogType.validator'
 
@@ -31,9 +32,12 @@ const updateBlogType = async (blogType: Array<unknown>) => {
 }
 
 const delBlogType = async (typeId: number) => {
-  const result = await blogTypeDao.delBlogType(typeId)
-
-  return result
+  // 删除该分类  以后 受到影响的文章数
+  const count = await blogDao.blogCountByBlogType(typeId)
+  // 执行删除 分类操作
+  await blogTypeDao.delBlogType(typeId)
+  // 返回 受到影响的文章数量
+  return count
 }
 
 export default {
